@@ -1,0 +1,3 @@
+[submodule "reth"]
+	path = reth
+	url = https://github.com/prateushsharma/reth.git
