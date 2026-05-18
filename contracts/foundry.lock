@@ -1,0 +1,11 @@
+{
+  "../reth": {
+    "rev": "3e34c428338acccf863afaa9ade4f091cd69a267"
+  },
+  "lib/forge-std": {
+    "tag": {
+      "name": "v1.16.1",
+      "rev": "620536fa5277db4e3fd46772d5cbc1ea0696fb43"
+    }
+  }
+}
