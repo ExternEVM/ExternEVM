@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# Graceful shutdown
 trap 'echo "[ExternEVM] Caught SIGTERM, shutting down..."; kill -TERM "$PID"; wait "$PID"' SIGTERM SIGINT
 
 DATA_DIR="${DATA_DIR:-/data}"
@@ -9,6 +8,16 @@ CHAIN_CONFIG="${CHAIN_CONFIG:-/config/genesis.json}"
 HTTP_PORT="${HTTP_PORT:-8545}"
 WS_PORT="${WS_PORT:-8546}"
 P2P_PORT="${P2P_PORT:-30303}"
+PRODUCTION="${PRODUCTION:-false}"
+
+# In production mode, restrict RPC methods — no debug/trace
+if [ "$PRODUCTION" = "true" ]; then
+    HTTP_API="eth,net,web3"
+    echo "[ExternEVM] Production mode — RPC methods restricted to: $HTTP_API"
+else
+    HTTP_API="eth,net,web3,debug,trace"
+    echo "[ExternEVM] Development mode — all RPC methods enabled: $HTTP_API"
+fi
 
 echo "[ExternEVM] Starting modified Reth node..."
 echo "  Chain config: ${CHAIN_CONFIG}"
@@ -22,7 +31,7 @@ reth node \
   --chain "${CHAIN_CONFIG}" \
   --datadir "${DATA_DIR}" \
   --http \
-  --http.api eth,net,web3,debug,trace \
+  --http.api "$HTTP_API" \
   --http.addr 0.0.0.0 \
   --http.port "${HTTP_PORT}" \
   --http.corsdomain "*" \
