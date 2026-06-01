@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$SCRIPT_DIR/.."
 RETH_BIN="$ROOT/reth/target/release/reth"
-CL_BIN="$ROOT/consensus/target/release/externevm-consensus"
+CL_BIN="$ROOT/target/release/externevm-consensus"
 GENESIS="$ROOT/config/genesis.json"
 JWT="$ROOT/config/jwt.hex"
 LOG_DIR="$ROOT/logs"
