@@ -1,5 +1,5 @@
 [workspace]
-members = [
+members = ["consensus",
     "crates/externevm-precompile",
 ]
 resolver = "2"
